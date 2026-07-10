@@ -706,7 +706,7 @@ footer a{color:var(--white);text-decoration:none}
 
 <main id="main">
   <section class="hero" id="inicio" aria-label="Underwater Wine Experience">
-    <video class="hero-video" autoplay muted loop playsinline poster="assets/media/epic-hero-yacht-wine-poster.jpg" aria-hidden="true">
+    <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/media/epic-hero-yacht-wine-poster.jpg" aria-hidden="true">
       <source src="assets/media/epic-hero-yacht-wine.mp4" type="video/mp4">
     </video>
     <div class="hero-inner">
@@ -916,6 +916,8 @@ footer a{color:var(--white);text-decoration:none}
   </div>
 </footer>
 
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
 <script>
 const body = document.body;
 window.addEventListener("load", () => body.classList.add("is-loaded"));
@@ -957,6 +959,38 @@ form.addEventListener("submit", (event) => {
   result.textContent = message;
   result.classList.add("show");
 });
+
+// Hero scroll-scrub — GSAP ScrollTrigger + pin (desktop; mobile/reduced-motion mantem autoplay loop)
+(function(){
+  const v = document.getElementById("heroVideo");
+  if(!v) return;
+  const canScrub = window.matchMedia("(min-width:820px) and (hover:hover)").matches
+    && !window.matchMedia("(prefers-reduced-motion:reduce)").matches
+    && window.gsap && window.ScrollTrigger;
+  if(!canScrub) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const start = () => {
+    const dur = (v.duration && isFinite(v.duration)) ? v.duration : 6;
+    v.removeAttribute("loop"); v.loop = false; v.autoplay = false; v.pause(); v.currentTime = 0;
+    let target = 0;
+    ScrollTrigger.create({
+      trigger: "#inicio",
+      start: "top top",
+      end: "+=180%",
+      pin: true,
+      scrub: 0.4,
+      onUpdate: self => { target = self.progress * (dur - 0.06); }
+    });
+    // Aplica o seek num loop rAF proprio — evita floodar currentTime a cada evento de scroll
+    const tick = () => {
+      if (Math.abs(v.currentTime - target) > 0.01) { try { v.currentTime = target; } catch(e){} }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if (v.readyState >= 1) start();
+  else v.addEventListener("loadedmetadata", start, { once:true });
+})();
 </script>
 </body>
 </html>
