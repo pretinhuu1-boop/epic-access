@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epic Access — Underwater Wine Experience em Alicante</title>
+<meta name="description" content="Dois dias no Mediterraneo entre iate de luxo, gastronomia, networking e o ritual de um vinho envelhecido no fundo do mar.">
+<meta name="theme-color" content="#080807">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23080807'/><path d='M16 7l9 9-9 9-9-9z' fill='none' stroke='%23c79a47' stroke-width='2'/></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Epic Access — Underwater Wine Experience">
+<meta property="og:description" content="Alicante, Costa Blanca. Uma experiencia reservada a poucos, entre mar, vinho e acesso.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="assets/media/epic-hero-yacht-wine-poster.jpg">
+
+<link rel="preload" as="image" href="assets/media/epic-hero-yacht-wine-poster.jpg">
+
+<style>
+:root{
+  --ink:#080807;
+  --paper:#f5efe5;
+  --mist:#e4ddd0;
+  --muted:#8d8476;
+  --gold:#c79a47;
+  --sea:#0b3a40;
+  --reef:#0f646a;
+  --white:#fffaf0;
+  --line:rgba(8,8,7,.16);
+  --line-dark:rgba(255,250,240,.18);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:"Helvetica Neue",Arial,system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.45;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0 0 auto;
+  height:3px;
+  transform:scaleX(var(--scroll,0));
+  transform-origin:left;
+  background:var(--gold);
+  z-index:80;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.skip{
+  position:absolute;
+  left:-999px;
+  top:12px;
+  z-index:100;
+  background:var(--paper);
+  color:var(--ink);
+  padding:10px 14px;
+  border-radius:4px;
+}
+.skip:focus{left:12px}
+.preloader{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  pointer-events:none;
+  background:var(--ink);
+}
+.preloader span{
+  background:var(--sea);
+  border-right:1px solid rgba(255,250,240,.1);
+  transform:translateY(0);
+}
+.is-loaded .preloader span{
+  animation:blind .72s var(--ease) forwards;
+  animation-delay:calc(var(--i) * 90ms);
+}
+.is-loaded .preloader{animation:gone .01s 1.05s forwards}
+@keyframes blind{to{transform:translateY(-105%)}}
+@keyframes gone{to{visibility:hidden}}
+
+.topbar{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:60;
+  color:var(--white);
+  transition:background .35s var(--ease),backdrop-filter .35s var(--ease),padding .35s var(--ease);
+}
+.topbar.scrolled{
+  background:rgba(8,8,7,.72);
+  backdrop-filter:blur(18px);
+}
+.nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:18px clamp(18px,4vw,42px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  min-height:42px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.78rem;
+  font-weight:700;
+}
+.mark{
+  width:30px;
+  height:30px;
+  border:1px solid rgba(255,250,240,.7);
+  display:grid;
+  place-items:center;
+  transform:rotate(45deg);
+}
+.mark span{
+  display:block;
+  width:12px;
+  height:12px;
+  border-top:2px solid var(--gold);
+  border-right:2px solid var(--gold);
+}
+.nav small{
+  color:rgba(255,250,240,.74);
+  font-size:.76rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.cta{
+  min-height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 18px;
+  border-radius:4px;
+  border:1px solid transparent;
+  background:var(--gold);
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:.01em;
+  transition:transform .25s var(--ease),background .25s var(--ease),color .25s var(--ease);
+}
+.cta:hover{transform:translateY(-2px);background:#e1b35c}
+.cta.dark{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.cta.dark:hover{background:var(--sea);border-color:var(--sea)}
+.cta.ghost{
+  background:transparent;
+  color:var(--white);
+  border-color:rgba(255,250,240,.48);
+}
+.cta.ghost:hover{background:rgba(255,250,240,.1)}
+
+.hero{
+  min-height:92svh;
+  position:relative;
+  isolation:isolate;
+  color:var(--white);
+  display:grid;
+  align-items:end;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(90deg,rgba(8,8,7,.82) 0%,rgba(8,8,7,.58) 42%,rgba(8,8,7,.2) 100%),
+    linear-gradient(0deg,rgba(8,8,7,.8) 0%,rgba(8,8,7,0) 42%);
+}
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-3;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  width:62vw;
+  max-width:780px;
+  aspect-ratio:1;
+  right:-18vw;
+  top:14vh;
+  z-index:-2;
+  border:1px solid rgba(199,154,71,.34);
+  border-radius:50%;
+  opacity:.7;
+}
+.hero-inner{
+  width:100%;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:92px clamp(18px,4vw,42px) clamp(28px,5vh,54px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:clamp(34px,6vh,74px);
+}
+.eyebrow{
+  font-size:.76rem;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  color:rgba(255,250,240,.76);
+  display:block;
+  margin-bottom:18px;
+}
+h1{
+  font-family:var(--serif);
+  font-weight:400;
+  letter-spacing:-.01em;
+  line-height:.9;
+  font-size:clamp(3.5rem,9vw,8rem);
+  margin:0;
+  max-width:8ch;
+}
+.hero-copy{
+  margin:26px 0 0;
+  max-width:44rem;
+  color:rgba(255,250,240,.84);
+  font-size:clamp(1.05rem,2vw,1.42rem);
+}
+.hero-actions{
+  margin-top:32px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+}
+.hero-meta{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;
+  max-width:620px;
+  background:rgba(255,250,240,.14);
+  border:1px solid rgba(255,250,240,.14);
+}
+.hero-meta div{
+  padding:16px;
+  background:rgba(8,8,7,.32);
+}
+.hero-meta strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:1.55rem;
+  line-height:1;
+  color:var(--white);
+  font-weight:400;
+}
+.hero-meta span{
+  display:block;
+  margin-top:7px;
+  color:rgba(255,250,240,.66);
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.downcue{
+  position:absolute;
+  right:clamp(18px,4vw,42px);
+  bottom:32px;
+  color:rgba(255,250,240,.7);
+  writing-mode:vertical-rl;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:.68rem;
+}
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .75s var(--ease),transform .75s var(--ease);
+}
+.reveal.in{opacity:1;transform:none}
+.hero .reveal{transition-delay:.28s}
+
+.section{
+  padding:clamp(74px,11vw,150px) clamp(18px,4vw,42px);
+}
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  margin:0 auto;
+  min-width:0;
+}
+.section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:22px;
+  margin-bottom:clamp(34px,6vw,78px);
+  min-width:0;
+}
+.section-head > *,
+.promise-grid > *,
+.signal-line > *,
+.days > *,
+.fit-item > *,
+.apply .wrap > *{
+  min-width:0;
+}
+.kicker{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:.74rem;
+  font-weight:800;
+}
+h2{
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:.98;
+  letter-spacing:-.01em;
+  margin:0;
+  font-size:clamp(2.6rem,7.8vw,7rem);
+}
+.lead{
+  color:#4d463d;
+  font-size:clamp(1.05rem,1.9vw,1.28rem);
+  max-width:44rem;
+  margin:0;
+}
+
+.promise{
+  background:var(--paper);
+}
+.promise-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:clamp(28px,5vw,70px);
+  align-items:end;
+}
+.signal-line{
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:72px minmax(0,1fr);
+  gap:20px;
+  padding:24px 0;
+}
+.signal-line b{
+  color:var(--gold);
+  font-family:var(--serif);
+  font-size:1.4rem;
+  font-weight:400;
+}
+.signal-line h3{
+  margin:0 0 8px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.signal-line p{margin:0;color:#5d554b;max-width:42rem}
+.visual-pair{
+  position:relative;
+  min-height:520px;
+  display:grid;
+  align-items:end;
+}
+.ambient-video{
+  position:absolute;
+  inset:0 12% 12% 0;
+  width:88%;
+  height:88%;
+  object-fit:cover;
+  filter:saturate(.9) contrast(1.04);
+}
+.bottle-video{
+  width:min(54vw,390px);
+  min-width:220px;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  justify-self:end;
+  position:relative;
+  z-index:2;
+  margin:0 0 42px auto;
+  border:1px solid rgba(255,250,240,.34);
+  box-shadow:0 34px 55px rgba(8,8,7,.34);
+}
+.caption{
+  position:absolute;
+  left:0;
+  bottom:0;
+  z-index:3;
+  max-width:340px;
+  padding:18px 20px 18px 0;
+  color:#332d25;
+  background:var(--paper);
+  font-size:.82rem;
+}
+.caption strong{display:block;color:var(--ink);margin-bottom:4px}
+
+.ritual{
+  background:var(--ink);
+  color:var(--white);
+  position:relative;
+  overflow:hidden;
+}
+.ritual::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.28;
+  background:
+    radial-gradient(circle at 28% 20%,rgba(15,100,106,.72),transparent 28%),
+    linear-gradient(180deg,rgba(11,58,64,.64),transparent 48%);
+}
+.ritual .wrap{position:relative}
+.ritual .lead{color:rgba(255,250,240,.72)}
+.ritual-board{
+  margin-top:clamp(36px,7vw,86px);
+  display:grid;
+  gap:1px;
+  background:var(--line-dark);
+  border:1px solid var(--line-dark);
+}
+.ritual-media{
+  margin-top:clamp(34px,6vw,72px);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+.ritual-media video{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  border:1px solid var(--line-dark);
+}
+.ritual-media p{
+  margin:0;
+  color:rgba(255,250,240,.62);
+  font-size:.86rem;
+  max-width:56rem;
+}
+.ritual-step{
+  background:rgba(255,250,240,.035);
+  padding:clamp(22px,4vw,38px);
+}
+.ritual-step span{
+  color:var(--gold);
+  font-family:var(--serif);
+  font-size:2rem;
+  line-height:1;
+}
+.ritual-step h3{
+  margin:22px 0 9px;
+  font-size:.92rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+.ritual-step p{margin:0;color:rgba(255,250,240,.68)}
+
+.journey{
+  background:var(--white);
+}
+.days{
+  display:grid;
+  gap:clamp(24px,5vw,68px);
+  align-items:start;
+}
+.day{
+  border-top:1px solid var(--line);
+  padding-top:24px;
+}
+.day-number{
+  font-family:var(--serif);
+  font-size:clamp(5rem,12vw,10rem);
+  line-height:.82;
+  color:var(--gold);
+}
+.day h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2rem,4vw,3.6rem);
+  line-height:.98;
+  margin:16px 0;
+}
+.day ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:12px;
+  color:#50483f;
+}
+.day li{
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:12px;
+}
+.day li::before{
+  content:"";
+  width:7px;
+  height:7px;
+  margin-top:9px;
+  background:var(--gold);
+  transform:rotate(45deg);
+}
+
+.fit{
+  background:var(--paper);
+}
+.fit-list{
+  display:grid;
+  gap:1px;
+  background:var(--line);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.fit-item{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  padding:24px 0;
+  background:var(--paper);
+}
+.fit-item strong{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.7rem,3.5vw,3rem);
+}
+.fit-item span{color:#5a5147;max-width:40rem}
+
+.apply{
+  background:var(--sea);
+  color:var(--white);
+  position:relative;
+  overflow:hidden;
+}
+.apply::before{
+  content:"";
+  position:absolute;
+  inset:auto -12% -38% auto;
+  width:min(72vw,820px);
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(199,154,71,.25);
+}
+.apply .wrap{
+  position:relative;
+  display:grid;
+  gap:clamp(30px,6vw,76px);
+}
+.apply .lead{color:rgba(255,250,240,.72)}
+form{
+  display:grid;
+  gap:16px;
+}
+.field{
+  display:grid;
+  gap:8px;
+}
+.field label,
+.choice-label{
+  font-size:.76rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,250,240,.66);
+  font-weight:800;
+}
+.field input,
+.field select{
+  width:100%;
+  min-height:54px;
+  border:1px solid rgba(255,250,240,.24);
+  border-radius:4px;
+  padding:13px 14px;
+  color:var(--white);
+  background:rgba(8,8,7,.2);
+}
+.field select option{color:var(--ink)}
+.consent{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:12px;
+  align-items:start;
+  color:rgba(255,250,240,.72);
+  font-size:.9rem;
+}
+.consent input{
+  width:20px;
+  height:20px;
+  accent-color:var(--gold);
+}
+.result{
+  display:none;
+  margin-top:8px;
+  padding:18px;
+  border:1px solid rgba(199,154,71,.42);
+  color:rgba(255,250,240,.82);
+  background:rgba(8,8,7,.24);
+  white-space:pre-wrap;
+}
+.result.show{display:block}
+.publish-check{
+  margin-top:34px;
+  border-top:1px solid var(--line-dark);
+  padding-top:24px;
+  color:rgba(255,250,240,.62);
+  font-size:.86rem;
+}
+.publish-check strong{color:var(--white)}
+.publish-check ul{
+  list-style:none;
+  padding:0;
+  margin:14px 0 0;
+  display:grid;
+  gap:8px;
+}
+.publish-check li::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:10px;
+  border:1px solid var(--gold);
+  transform:rotate(45deg);
+}
+
+footer{
+  background:var(--ink);
+  color:rgba(255,250,240,.66);
+  padding:28px clamp(18px,4vw,42px);
+  font-size:.82rem;
+}
+footer .wrap{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:12px;
+}
+footer a{color:var(--white);text-decoration:none}
+
+@media (min-width:820px){
+  .hero-inner{
+    grid-template-columns:minmax(0,1.08fr) minmax(320px,.6fr);
+    align-items:end;
+  }
+  .hero-meta{justify-self:end}
+  .section-head{
+    grid-template-columns:minmax(0,.92fr) minmax(320px,.62fr);
+    align-items:end;
+  }
+  .promise-grid{grid-template-columns:minmax(0,.9fr) minmax(320px,.78fr)}
+  .ritual-board{grid-template-columns:repeat(4,1fr)}
+  .days{grid-template-columns:repeat(2,1fr)}
+  .fit-item{grid-template-columns:minmax(260px,.42fr) 1fr;align-items:center}
+  .apply .wrap{grid-template-columns:minmax(0,.82fr) minmax(320px,.62fr);align-items:start}
+}
+@media (max-width:760px){
+  .nav{padding-top:12px;padding-bottom:12px}
+  .nav small{display:none}
+  .brand{font-size:.72rem}
+  .nav .cta{display:none}
+  .hero{min-height:94svh}
+  .hero-inner{padding-top:92px}
+  .downcue{display:none}
+  .visual-pair{min-height:440px}
+  .ambient-video{inset:0 0 18% 0;width:100%;height:82%}
+  .bottle-video{width:min(78vw,330px);min-width:0;margin-bottom:50px}
+  .caption{right:18px;padding-left:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteudo</a>
+<div class="preloader" aria-hidden="true">
+  <span style="--i:0"></span>
+  <span style="--i:1"></span>
+  <span style="--i:2"></span>
+  <span style="--i:3"></span>
+</div>
+
+<header class="topbar" id="topbar">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="#inicio" aria-label="Epic Access">
+      <span class="mark" aria-hidden="true"><span></span></span>
+      Epic Access
+    </a>
+    <small>@epic.access</small>
+    <a class="cta ghost" href="#aplicar">Solicitar disponibilidade</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" id="inicio" aria-label="Underwater Wine Experience">
+    <video class="hero-video" autoplay muted loop playsinline poster="assets/media/epic-hero-yacht-wine-poster.jpg" aria-hidden="true">
+      <source src="assets/media/epic-hero-yacht-wine.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <div class="reveal">
+        <span class="eyebrow">Alicante · Costa Blanca · Espanha</span>
+        <h1>Underwater Wine Experience</h1>
+        <p class="hero-copy">Dois dias no Mediterraneo, onde iate, gastronomia e um vinho envelhecido no fundo do mar viram uma experiencia reservada a poucos.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#aplicar">Solicitar disponibilidade</a>
+        </div>
+      </div>
+      <div class="hero-meta reveal" aria-label="Resumo da oferta">
+        <div><strong>2 dias</strong><span>Mar e vinicola</span></div>
+        <div><strong>30m+</strong><span>Profundidade narrativa</span></div>
+        <div><strong>Jul-Set</strong><span>Verao europeu</span></div>
+        <div><strong>EUR 10k</strong><span>Por pessoa</span></div>
+      </div>
+    </div>
+    <span class="downcue">Scroll</span>
+  </section>
+
+  <section class="section promise" aria-labelledby="promessa">
+    <div class="wrap promise-grid">
+      <div>
+        <div class="section-head">
+          <div>
+            <span class="kicker">A promessa</span>
+            <h2 id="promessa">Nao e sobre beber vinho.</h2>
+          </div>
+          <p class="lead">E sobre viver um momento raro, com acesso, bastidor, conteudo e pessoas certas no mesmo cenario.</p>
+        </div>
+        <div class="signal-line reveal">
+          <b>01</b>
+          <div>
+            <h3>Experiencia antes de roteiro</h3>
+            <p>A pagina vende criterio, nao turismo generico: mar, mesa, vinho e relacionamento de alto nivel.</p>
+          </div>
+        </div>
+        <div class="signal-line reveal">
+          <b>02</b>
+          <div>
+            <h3>Qualificacao sem friccao</h3>
+            <p>O lead entra por disponibilidade e perfil de data. Detalhes finos ficam para o concierge.</p>
+          </div>
+        </div>
+        <div class="signal-line reveal">
+          <b>03</b>
+          <div>
+            <h3>Prova visual do conceito</h3>
+            <p>Cada cena reforca o territorio: mar aberto, profundidade e o ritual do vinho resgatado do fundo do Mediterraneo.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="visual-pair reveal">
+        <video class="ambient-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/epic-underwater-cages-poster.jpg" aria-label="Mergulhador se aproximando de gaiolas de vinho no fundo do mar">
+          <source src="assets/media/epic-underwater-cages.mp4" type="video/mp4">
+        </video>
+        <video class="bottle-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/epic-ritual-bottle-close-poster.jpg" aria-label="Close de garrafa envelhecida no mar sendo escovada">
+          <source src="assets/media/epic-ritual-bottle-close.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section ritual" id="ritual" aria-labelledby="ritual-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">O ritual</span>
+          <h2 id="ritual-title">O mar entrega a garrafa.</h2>
+        </div>
+        <p class="lead">No ponto alto, o vinho submarino deixa de ser conceito e vira cena: profundidade, tempo, territorio e presenca.</p>
+      </div>
+      <div class="ritual-media reveal">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/media/epic-yacht-bottle-delivery-poster.jpg" aria-label="Entrega cerimonial de garrafa no deck de um iate">
+          <source src="assets/media/epic-yacht-bottle-delivery.mp4" type="video/mp4">
+        </video>
+        <p>A entrega da garrafa no deck condensa o gesto assinatura da experiencia: mar, tempo e celebracao reunidos em um unico momento.</p>
+      </div>
+      <div class="ritual-board">
+        <div class="ritual-step reveal">
+          <span>1</span>
+          <h3>Submersao</h3>
+          <p>O vinho envelhece em condicoes de pressao, temperatura constante, pouca luz e movimento das correntes.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <span>2</span>
+          <h3>Resgate</h3>
+          <p>O mergulhador transforma a historia em acontecimento visual, com operacao real ou cerimonial a confirmar.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <span>3</span>
+          <h3>Entrega</h3>
+          <p>A garrafa chega em maos, criando o momento assinatura para conteudo, memoria e degustacao.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <span>4</span>
+          <h3>Mesa</h3>
+          <p>Chef, harmonizacao e convidados certos fecham o valor: a experiencia e social, sensorial e rara.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section journey" aria-labelledby="jornada">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">A jornada</span>
+          <h2 id="jornada">Mar aberto no primeiro dia. Terroir no segundo.</h2>
+        </div>
+        <p class="lead">Uma estrutura simples, facil de entender e suficiente para qualificar interesse antes da chamada com concierge.</p>
+      </div>
+      <div class="days">
+        <article class="day reveal">
+          <div class="day-number">01</div>
+          <h3>Iate, chef e vinho submarino.</h3>
+          <ul>
+            <li>Navegacao pela Costa Blanca em iate de luxo.</li>
+            <li>Almoco harmonizado, musica e networking selecionado.</li>
+            <li>Producao de conteudo profissional, se confirmada no pacote final.</li>
+            <li>Ritual do vinho resgatado por mergulhador ou entrega cerimonial aprovada.</li>
+          </ul>
+        </article>
+        <article class="day reveal">
+          <div class="day-number">02</div>
+          <h3>Vinicola, degustacao e territorio.</h3>
+          <ul>
+            <li>Visita a vinicola selecionada em Alicante ou regiao proxima.</li>
+            <li>Degustacao guiada e leitura do terroir local.</li>
+            <li>Agenda flexivel durante julho, agosto e setembro.</li>
+            <li>Capacidade, transporte e politica de cancelamento a confirmar.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fit" aria-labelledby="perfil">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Para quem</span>
+          <h2 id="perfil">Quem compra acesso, nao pacote.</h2>
+        </div>
+        <p class="lead">A linguagem e seletiva, curta e direta: se o cliente precisa de desconto, roteiro massivo ou turismo comum, nao e a oferta certa.</p>
+      </div>
+      <div class="fit-list">
+        <div class="fit-item reveal">
+          <strong>Empresarios e investidores</strong>
+          <span>Para quem usa experiencia como relacao, memoria e ambiente qualificado de conversa.</span>
+        </div>
+        <div class="fit-item reveal">
+          <strong>Criadores e marcas pessoais</strong>
+          <span>Para quem precisa de um momento raro com alto valor de imagem e narrativa.</span>
+        </div>
+        <div class="fit-item reveal">
+          <strong>Grupos privados</strong>
+          <span>Para celebrações, networking ou hospitalidade premium com agenda restrita.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section apply" id="aplicar" aria-labelledby="aplicar-title">
+    <div class="wrap">
+      <div>
+        <span class="kicker">Aplicacao concierge</span>
+        <h2 id="aplicar-title">Solicite disponibilidade.</h2>
+        <p class="lead">Tres respostas bastam para iniciar. A equipe confirma data, inclusoes, capacidade e politica de clima antes de qualquer compromisso.</p>
+      </div>
+
+      <form id="lead-form">
+        <div class="field">
+          <label for="name">Nome</label>
+          <input id="name" name="name" autocomplete="name" placeholder="Seu nome" required>
+        </div>
+        <div class="field">
+          <label for="contact">WhatsApp ou email</label>
+          <input id="contact" name="contact" autocomplete="email" placeholder="Canal para retorno" required>
+        </div>
+        <div class="field">
+          <label for="window">Janela desejada</label>
+          <select id="window" name="window" required>
+            <option value="">Selecione</option>
+            <option>Julho</option>
+            <option>Agosto</option>
+            <option>Setembro</option>
+            <option>Datas flexiveis</option>
+          </select>
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="consent" required>
+          <span>Autorizo o uso dos dados acima apenas para retorno sobre disponibilidade da Underwater Wine Experience.</span>
+        </label>
+        <button class="cta" type="submit">Preparar contato concierge</button>
+        <output class="result" id="result" aria-live="polite"></output>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Epic Access · Underwater Wine Experience · Alicante, Costa Blanca</span>
+    <span><a href="https://www.instagram.com/epic.access/" target="_blank" rel="noreferrer">@epic.access</a></span>
+  </div>
+</footer>
+
+<script>
+const body = document.body;
+window.addEventListener("load", () => body.classList.add("is-loaded"));
+
+const topbar = document.getElementById("topbar");
+const setScrollState = () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = max > 0 ? window.scrollY / max : 0;
+  document.documentElement.style.setProperty("--scroll", progress.toFixed(4));
+  topbar.classList.toggle("scrolled", window.scrollY > 16);
+};
+setScrollState();
+window.addEventListener("scroll", setScrollState, { passive:true });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add("in");
+  });
+}, { threshold:.18 });
+document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+const form = document.getElementById("lead-form");
+const result = document.getElementById("result");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const name = document.getElementById("name").value.trim();
+  const contact = document.getElementById("contact").value.trim();
+  const windowValue = document.getElementById("window").value;
+  const message = [
+    "Contato concierge preparado:",
+    "",
+    `Nome: ${name}`,
+    `Canal: ${contact}`,
+    `Janela desejada: ${windowValue}`,
+    "",
+    "Interesse: Underwater Wine Experience, Alicante.",
+    "Proximo passo: confirmar disponibilidade, inclusoes, capacidade e CTA final."
+  ].join("\n");
+  result.textContent = message;
+  result.classList.add("show");
+});
+</script>
+</body>
+</html>
